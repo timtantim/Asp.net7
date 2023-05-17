@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using WebApplication7._0.DbContexts;
 
 namespace WebApplication7._0.RepositoryService
@@ -15,6 +16,8 @@ namespace WebApplication7._0.RepositoryService
         public T Create(T entity)
         {
             ApplicationDbContext.Set<T>().Add(entity);
+
+            return entity;
         }
 
         public void Delete(T entity)
@@ -24,17 +27,16 @@ namespace WebApplication7._0.RepositoryService
 
         public IQueryable<T> FindAll()
         {
-            throw new NotImplementedException();
+            return ApplicationDbContext.Set<T>().AsNoTracking();
         }
 
         public IQueryable<T> FindSpecificData(Expression<Func<T, bool>> expression)
         {
-            throw new NotImplementedException();
-        }
+            return ApplicationDbContext.Set<T>().Where(expression).AsNoTracking();       }
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            ApplicationDbContext.Set<T>().Update(entity);
         }
     }
 }
