@@ -10,5 +10,6 @@ namespace WebApplication7._0.DbContexts
             
         }
         public DbSet<Test> Test { get; set; }
+        public DbSet<Book> Books { get; set; }
     }
 }

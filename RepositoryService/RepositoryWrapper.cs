@@ -5,7 +5,8 @@ namespace WebApplication7._0.RepositoryService
     public class RepositoryWrapper : IRepositoryWrapper
     {
         private ApplicationDbContext _applicationDbContext;
-        private ITestRepository _test;
+        private ITestRepository? _test;
+        private IBookRepository? _bookRepository;
 
         public RepositoryWrapper(ApplicationDbContext applicationDbContext)
         {
@@ -18,6 +19,15 @@ namespace WebApplication7._0.RepositoryService
                     _test = new TestRepository(_applicationDbContext);
                 }
                 return _test;
+            }
+        }
+
+        public IBookRepository Book {
+            get {
+                if (_bookRepository == null) { 
+                    _bookRepository=new BookRepository(_applicationDbContext);
+                }
+                return _bookRepository;
             }
         }
 
